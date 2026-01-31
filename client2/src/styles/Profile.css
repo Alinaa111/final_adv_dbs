@@ -1,0 +1,33 @@
+.profile-page {
+  padding: 40px 60px;
+}
+
+.profile-container {
+  display: grid;
+  grid-template-columns: 300px 1fr;
+  gap: 30px;
+}
+
+.info-card {
+  background: white;
+  padding: 20px;
+  border-radius: 16px;
+}
+
+.order-card {
+  background: white;
+  padding: 20px;
+  border-radius: 16px;
+  margin-bottom: 20px;
+}
+
+.order-item {
+  display: flex;
+  gap: 15px;
+  margin-top: 10px;
+}
+
+.order-item img {
+  width: 60px;
+  border-radius: 8px;
+}

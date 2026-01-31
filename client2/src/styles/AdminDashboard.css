@@ -1,0 +1,144 @@
+.admin-dashboard {
+  padding: 30px;
+  font-family: Arial, sans-serif;
+}
+
+.admin-dashboard h1 {
+  margin-bottom: 20px;
+}
+
+.tabs {
+  display: flex;
+  gap: 10px;
+  margin-bottom: 25px;
+}
+
+.tabs button {
+  padding: 10px 18px;
+  border: none;
+  background: #eee;
+  cursor: pointer;
+  border-radius: 6px;
+  font-weight: 500;
+}
+
+.tabs button.active {
+  background: #111;
+  color: white;
+}
+
+.tab-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 15px;
+}
+
+.tab-header button {
+  padding: 8px 14px;
+  background: #111;
+  color: white;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+}
+
+.product-form {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 12px;
+  margin-bottom: 30px;
+  background: #f9f9f9;
+  padding: 20px;
+  border-radius: 8px;
+}
+
+.product-form textarea {
+  grid-column: span 2;
+  resize: vertical;
+}
+
+.product-form button {
+  grid-column: span 2;
+  padding: 10px;
+  background: #111;
+  color: white;
+  border: none;
+  border-radius: 6px;
+}
+
+.products-table,
+.orders-table {
+  width: 100%;
+  border-collapse: collapse;
+}
+
+.products-table th,
+.products-table td,
+.orders-table th,
+.orders-table td {
+  padding: 10px;
+  border-bottom: 1px solid #ddd;
+  text-align: left;
+}
+
+.products-table img {
+  border-radius: 6px;
+}
+
+.products-table button {
+  margin-right: 6px;
+  padding: 5px 10px;
+  border: none;
+  border-radius: 4px;
+  cursor: pointer;
+}
+
+.products-table button:first-child {
+  background: #007bff;
+  color: white;
+}
+
+.products-table button:last-child {
+  background: #dc3545;
+  color: white;
+}
+
+.status {
+  padding: 4px 10px;
+  border-radius: 20px;
+  font-size: 13px;
+}
+
+.status.pending {
+  background: orange;
+  color: white;
+}
+
+.status.completed {
+  background: green;
+  color: white;
+}
+
+.analytics-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
+  gap: 20px;
+}
+
+.analytics-card {
+  background: #f8f8f8;
+  padding: 20px;
+  border-radius: 10px;
+}
+
+.stat-row {
+  display: flex;
+  justify-content: space-between;
+  margin-top: 8px;
+}
+
+.stat-row.warning {
+  color: #c0392b;
+  font-weight: bold;
+}
