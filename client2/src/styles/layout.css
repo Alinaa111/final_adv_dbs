@@ -1,5 +1,12 @@
+/* Layout helpers */
+
+.container {
+  width: min(1180px, calc(100% - 48px));
+  margin: 0 auto;
+}
+
 .page {
-  padding: 40px 60px;
+  padding: 24px 0;
 }
 
 .centered-page {
@@ -24,4 +31,12 @@
 
 .grid-auto {
   grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
+}
+
+@media (max-width: 900px) {
+  .container { width: calc(100% - 32px); }
+}
+
+@media (max-width: 640px) {
+  .container { width: calc(100% - 24px); }
 }

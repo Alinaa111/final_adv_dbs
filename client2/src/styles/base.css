@@ -1,10 +1,30 @@
 :root {
-  --primary: #111;
-  --secondary: #555;
-  --accent: #e10600;
-  --bg: #f6f6f6;
-  --white: #fff;
-  --radius: 12px;
+  /* Brand */
+  --primary: #0f172a;       /* deep navy */
+  --primary-2: #111827;     /* darker */
+  --accent: #e10600;        /* red */
+
+  /* Surfaces */
+  --bg: #f6f7fb;
+  --surface: #ffffff;
+  --surface-2: #f1f3f8;
+
+  /* Text */
+  --text: #0f172a;
+  --muted: #64748b;
+
+  /* Borders & radius */
+  --border: rgba(15, 23, 42, 0.10);
+  --border-strong: rgba(15, 23, 42, 0.16);
+  --radius: 16px;
+  --radius-sm: 12px;
+
+  /* Shadows */
+  --shadow-sm: 0 10px 24px rgba(15, 23, 42, 0.06);
+  --shadow-md: 0 18px 48px rgba(15, 23, 42, 0.12);
+
+  /* Focus ring */
+  --ring: 0 0 0 3px rgba(15, 23, 42, 0.12);
 }
 
 * {
@@ -14,9 +34,10 @@
 }
 
 body {
-  font-family: 'Inter', Arial, sans-serif;
+  font-family: Inter, system-ui, -apple-system, Segoe UI, Roboto, Arial, sans-serif;
   background: var(--bg);
-  color: #111;
+  color: var(--text);
+  line-height: 1.5;
 }
 
 a {
@@ -36,4 +57,19 @@ button {
 
 input, select, textarea {
   font-family: inherit;
+}
+
+input, textarea, select {
+  color: #111;              
+  background: #fff;         
+}
+
+input::placeholder,
+textarea::placeholder {
+  color: #777;             
+  opacity: 1;
+}
+
+input:focus, textarea:focus, select:focus {
+  outline: none;
 }

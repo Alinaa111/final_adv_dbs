@@ -26,7 +26,18 @@ app.use(express.urlencoded({ extended: true }));
 
 // CORS - Allow frontend to access backend
 app.use(cors({
-  origin: process.env.CLIENT_URL || 'http://localhost:3000',
+  origin: (origin, cb) => {
+    const allowList = (process.env.CLIENT_URLS || process.env.CLIENT_URL || 'http://localhost:3000,http://localhost:3001')
+      .split(',')
+      .map(v => v.trim())
+      .filter(Boolean);
+
+    // allow REST tools / same-origin (no origin header)
+    if (!origin) return cb(null, true);
+
+    if (allowList.includes(origin)) return cb(null, true);
+    return cb(new Error(`CORS blocked for origin: ${origin}`));
+  },
   credentials: true
 }));
 

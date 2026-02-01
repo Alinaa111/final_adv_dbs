@@ -1,33 +1,159 @@
 .profile-page {
-  padding: 40px 60px;
+  width: min(1180px, calc(100% - 48px));
+  margin: 0 auto;
+  padding: 24px 0 48px;
+}
+
+.profile-page h1 {
+  font-size: 32px;
+  letter-spacing: -0.02em;
+  margin-bottom: 16px;
 }
 
 .profile-container {
   display: grid;
-  grid-template-columns: 300px 1fr;
-  gap: 30px;
+  grid-template-columns: 340px 1fr;
+  gap: 22px;
+  align-items: start;
 }
 
-.info-card {
-  background: white;
-  padding: 20px;
-  border-radius: 16px;
+.user-info-section h2,
+.orders-section h2 {
+  font-size: 18px;
+  margin-bottom: 12px;
 }
 
+.info-card,
 .order-card {
-  background: white;
-  padding: 20px;
-  border-radius: 16px;
-  margin-bottom: 20px;
+  background: var(--surface);
+  border: 1px solid var(--border);
+  border-radius: var(--radius);
+  box-shadow: var(--shadow-sm);
+  padding: 18px;
 }
 
-.order-item {
+.info-row {
   display: flex;
-  gap: 15px;
+  justify-content: space-between;
+  gap: 12px;
+  padding: 10px 0;
+  border-bottom: 1px solid var(--border);
+}
+
+.info-row:last-child {
+  border-bottom: none;
+}
+
+.role-badge {
+  display: inline-flex;
+  align-items: center;
+  padding: 6px 10px;
+  border-radius: 999px;
+  font-size: 12px;
+  font-weight: 800;
+  background: rgba(15, 23, 42, 0.06);
+}
+
+.role-badge.admin {
+  background: rgba(225, 6, 0, 0.12);
+  color: var(--accent);
+}
+
+.role-badge.user {
+  background: rgba(59, 130, 246, 0.14);
+  color: #1d4ed8;
+}
+
+.order-header {
+  display: flex;
+  align-items: flex-start;
+  justify-content: space-between;
+  gap: 12px;
+  margin-bottom: 12px;
+}
+
+.order-date {
+  margin: 4px 0 0;
+  color: var(--muted);
+  font-size: 13px;
+}
+
+.status-badge {
+  padding: 8px 12px;
+  border-radius: 999px;
+  font-size: 12px;
+  font-weight: 900;
+  color: #fff;
+}
+
+.order-items {
+  display: grid;
+  gap: 12px;
   margin-top: 10px;
 }
 
+.order-item {
+  display: grid;
+  grid-template-columns: 56px 1fr auto;
+  gap: 12px;
+  align-items: center;
+  padding: 12px;
+  border-radius: var(--radius-sm);
+  border: 1px solid var(--border);
+  background: rgba(15, 23, 42, 0.02);
+}
+
 .order-item img {
-  width: 60px;
-  border-radius: 8px;
+  width: 56px;
+  height: 56px;
+  border-radius: 12px;
+  object-fit: cover;
+}
+
+.item-name {
+  font-weight: 900;
+}
+
+.item-details {
+  margin-top: 2px;
+  color: var(--muted);
+  font-size: 13px;
+}
+
+.item-price {
+  font-weight: 900;
+}
+
+.order-footer {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 12px;
+  padding-top: 12px;
+  margin-top: 14px;
+  border-top: 1px solid var(--border);
+  color: var(--muted);
+}
+
+.order-total {
+  display: flex;
+  gap: 10px;
+  align-items: center;
+  color: var(--text);
+}
+
+@media (max-width: 980px) {
+  .profile-container {
+    grid-template-columns: 1fr;
+  }
+}
+
+@media (max-width: 900px) {
+  .profile-page { width: calc(100% - 32px); }
+}
+
+@media (max-width: 640px) {
+  .profile-page { width: calc(100% - 24px); }
+  .order-item { grid-template-columns: 56px 1fr; }
+  .item-price { grid-column: 1 / -1; text-align: right; }
 }
