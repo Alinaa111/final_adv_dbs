@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react';
+import { useState, useEffect } from 'react';
 import { productService, orderService, analyticsService } from '../services/api';
 import '../styles/AdminDashboard.css';
 
