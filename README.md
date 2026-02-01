@@ -17,7 +17,7 @@ This project demonstrates advanced MongoDB features including:
 
 ## 📋 Team Division
 
-### Student A: Data & Security Specialist
+### Aliya: Data & Security Specialist
 **Responsibilities:**
 - ✅ Database Setup & Schema Design
 - ✅ Authentication System (JWT)
@@ -30,12 +30,14 @@ This project demonstrates advanced MongoDB features including:
 - `/server/models/` - All Mongoose models
 - `/server/config/db.js` - Database configuration
 - `/server/middleware/auth.js` - Authentication middleware
+- `/server/middleware/errorHandler.js` - Error Handler middleware
 - `/server/controllers/authController.js`
 - `/server/controllers/orderController.js`
 - `/server/controllers/analyticsController.js`
 - `/server/seed.js` - Database seeder
+- `/server/server.js`- Server connection
 
-### Student B: Full-Stack & UX Specialist
+### Alina: Full-Stack & UX Specialist
 **Responsibilities:**
 - ✅ Frontend Development (React)
 - ✅ API Integration (Axios)
@@ -58,7 +60,7 @@ This project demonstrates advanced MongoDB features including:
 
 ### Backend Setup
 
-1. Navigate to server directory:
+1. Navigate to server directory (1st terminal):
 ```bash
 cd server
 npm install
@@ -87,7 +89,7 @@ Server runs on http://localhost:5000
 
 ### Frontend Setup
 
-1. Navigate to client directory:
+1. Navigate to client directory (2nd terminal):
 ```bash
 cd client
 npm install
@@ -147,6 +149,9 @@ App runs on http://localhost:3000
 4. **Cart** (`/cart`) - Shopping cart with quantity controls
 5. **User Profile/Orders** (`/profile`) - Order history, profile management
 6. **Admin Dashboard** (`/admin`) - Product CRUD, analytics, order management
+7. **Login** (`/login`) - Login to the system
+8. **Register** (`/register`) - Register to the platform
+9. **Checkout** (`/checkout`) - Check out the order details
 
 ## 🔧 Advanced MongoDB Features Implemented
 
@@ -358,7 +363,7 @@ SHOE-STORE-PROJECT/
 │   ├── seed.js                      # Database seeder
 │   └── package.json
 │
-└── client/
+└── client2/
     ├── src/
     │   ├── components/              # Reusable components
     │   ├── pages/                   # Main pages
@@ -367,13 +372,28 @@ SHOE-STORE-PROJECT/
     │   │   ├── ProductDetail.js
     │   │   ├── Cart.js
     │   │   ├── Profile.js
-    │   │   └── AdminDashboard.js
+    │   │   |── AdminDashboard.js
+    │   │   ├── Checkout.js
+    │   │   ├── Login.js
+    │   │   └── Register.js
     │   ├── contexts/
     │   │   ├── AuthContext.js       # Auth state management
     │   │   └── CartContext.js       # Cart state management
     │   ├── services/
     │   │   └── api.js               # Axios API calls
     │   ├── styles/                  # CSS files
+    │   │   ├── Home.css
+    │   │   ├── Shop.css
+    │   │   ├── ProductDetail.css
+    │   │   ├── Cart.css
+    │   │   ├── Profile.css
+    │   │   |── AdminDashboard.css
+    │   │   ├── Checkout.css
+    │   │   ├── Login.css
+    │   │   |── Register.css
+    │   │   ├── base.css
+    │   │   ├── ui.css
+    │   │   └── layout.css
     │   └── App.js
     └── package.json
 ```
@@ -393,34 +413,3 @@ This project demonstrates:
 ✅ React state management
 ✅ Responsive UI design
 
-## 📝 Documentation for Report
-
-### MongoDB Features (50 points)
-
-1. **Embedded Documents**: Colors, sizes, reviews in Product model
-2. **Referenced Documents**: User reference in Order model
-3. **Compound Indexes**: brand+price, category+rating
-4. **Text Search**: Full-text search on products
-5. **Aggregation Pipelines**: 6 different analytics queries
-6. **Advanced Updates**: $inc, $push, $set operators
-7. **Schema Validation**: Enums, custom validators, required fields
-8. **Virtual Properties**: finalPrice, inStock, totalItems
-9. **Middleware Hooks**: Pre-save calculations
-10. **Denormalization**: Order items snapshot product data
-
-### Screenshots to Include:
-1. MongoDB Compass showing collections
-2. Product document structure
-3. Order with embedded items
-4. Aggregation query results
-5. Text search results
-6. Index list from MongoDB
-7. API endpoint testing (Postman/Insomnia)
-8. Frontend pages (all 6)
-
-## 🤝 Contributors
-- Student A: Backend & Database Architecture
-- Student B: Frontend & User Experience
-
-## 📄 License
-MIT License - Free for educational use
