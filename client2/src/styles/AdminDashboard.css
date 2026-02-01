@@ -1,144 +1,406 @@
 .admin-dashboard {
-  padding: 30px;
-  font-family: Arial, sans-serif;
+  width: min(1180px, calc(100% - 48px));
+  margin: 0 auto;
+  padding: 24px 0;
 }
 
 .admin-dashboard h1 {
-  margin-bottom: 20px;
+  font-size: 32px;
+  letter-spacing: -0.02em;
+  margin-bottom: 16px;
 }
 
 .tabs {
   display: flex;
   gap: 10px;
-  margin-bottom: 25px;
+  margin-bottom: 18px;
+  flex-wrap: wrap;
 }
 
 .tabs button {
-  padding: 10px 18px;
-  border: none;
-  background: #eee;
+  padding: 10px 14px;
+  border: 1px solid var(--border);
+  background: var(--surface);
   cursor: pointer;
-  border-radius: 6px;
-  font-weight: 500;
+  border-radius: 999px;
+  font-weight: 900;
+  color: var(--text);
+  transition: background .12s ease, box-shadow .12s ease, transform .12s ease;
+}
+
+.tabs button:hover {
+  background: rgba(15, 23, 42, 0.04);
 }
 
 .tabs button.active {
-  background: #111;
-  color: white;
+  background: var(--primary);
+  color: #fff;
+  border-color: transparent;
 }
 
 .tab-header {
   display: flex;
   justify-content: space-between;
   align-items: center;
-  margin-bottom: 15px;
+  gap: 12px;
+  margin: 8px 0 14px;
+}
+
+.tab-header h2 {
+  margin: 0;
+  font-size: 18px;
+  font-weight: 900;
 }
 
 .tab-header button {
-  padding: 8px 14px;
-  background: #111;
-  color: white;
+  padding: 10px 14px;
+  background: var(--primary);
+  color: #fff;
   border: none;
-  border-radius: 5px;
+  border-radius: 999px;
   cursor: pointer;
+  font-weight: 900;
+}
+
+.tab-header button:hover {
+  filter: brightness(1.05);
 }
 
 .product-form {
   display: grid;
   grid-template-columns: repeat(2, 1fr);
   gap: 12px;
-  margin-bottom: 30px;
-  background: #f9f9f9;
-  padding: 20px;
-  border-radius: 8px;
+  margin-bottom: 18px;
+  background: var(--surface);
+  border: 1px solid var(--border);
+  padding: 16px;
+  border-radius: var(--radius);
+  box-shadow: var(--shadow-sm);
+}
+
+.product-form input,
+.product-form select,
+.product-form textarea {
+  width: 100%;
+  padding: 10px 12px;
+  border-radius: 12px;
+  border: 1px solid var(--border-strong);
+  background: var(--surface);
+  color: var(--text);
 }
 
 .product-form textarea {
   grid-column: span 2;
   resize: vertical;
+  min-height: 90px;
 }
 
 .product-form button {
   grid-column: span 2;
-  padding: 10px;
-  background: #111;
-  color: white;
+  padding: 12px;
+  background: var(--primary);
+  color: #fff;
   border: none;
-  border-radius: 6px;
+  border-radius: 12px;
+  font-weight: 900;
 }
 
 .products-table,
 .orders-table {
   width: 100%;
-  border-collapse: collapse;
+  border-collapse: separate;
+  border-spacing: 0;
+  overflow: hidden;
+  border: 1px solid var(--border);
+  border-radius: var(--radius);
+  background: var(--surface);
+  box-shadow: var(--shadow-sm);
 }
 
 .products-table th,
 .products-table td,
 .orders-table th,
 .orders-table td {
-  padding: 10px;
-  border-bottom: 1px solid #ddd;
+  padding: 12px 14px;
+  border-bottom: 1px solid var(--border);
   text-align: left;
+  vertical-align: middle;
+}
+
+.products-table th,
+.orders-table th {
+  font-size: 12px;
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+  color: var(--muted);
+  background: rgba(15, 23, 42, 0.03);
+}
+
+.products-table tr:last-child td,
+.orders-table tr:last-child td {
+  border-bottom: none;
 }
 
 .products-table img {
-  border-radius: 6px;
+  border-radius: 10px;
 }
 
 .products-table button {
-  margin-right: 6px;
-  padding: 5px 10px;
-  border: none;
-  border-radius: 4px;
+  margin-right: 8px;
+  padding: 8px 10px;
+  border: 1px solid transparent;
+  border-radius: 12px;
   cursor: pointer;
+  font-weight: 800;
 }
 
 .products-table button:first-child {
-  background: #007bff;
-  color: white;
+  background: rgba(59, 130, 246, 0.14);
+  color: #1d4ed8;
+  border-color: rgba(59, 130, 246, 0.18);
 }
 
 .products-table button:last-child {
-  background: #dc3545;
-  color: white;
+  background: rgba(239, 68, 68, 0.12);
+  color: #991b1b;
+  border-color: rgba(239, 68, 68, 0.16);
 }
 
 .status {
-  padding: 4px 10px;
-  border-radius: 20px;
-  font-size: 13px;
+  padding: 6px 10px;
+  border-radius: 999px;
+  font-size: 12px;
+  font-weight: 900;
+  display: inline-flex;
 }
 
 .status.pending {
-  background: orange;
-  color: white;
+  background: rgba(245, 158, 11, 0.18);
+  color: #92400e;
 }
 
 .status.completed {
-  background: green;
-  color: white;
+  background: rgba(34, 197, 94, 0.16);
+  color: #166534;
 }
 
 .analytics-grid {
   display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
-  gap: 20px;
+  grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
+  gap: 16px;
 }
 
 .analytics-card {
-  background: #f8f8f8;
-  padding: 20px;
-  border-radius: 10px;
+  background: var(--surface);
+  border: 1px solid var(--border);
+  padding: 16px;
+  border-radius: var(--radius);
+  box-shadow: var(--shadow-sm);
+}
+
+.analytics-card h3 {
+  margin-bottom: 10px;
+  font-weight: 900;
 }
 
 .stat-row {
   display: flex;
   justify-content: space-between;
-  margin-top: 8px;
+  gap: 12px;
+  margin-top: 10px;
 }
 
 .stat-row.warning {
-  color: #c0392b;
-  font-weight: bold;
+  color: #b91c1c;
+  font-weight: 900;
+}
+
+.variants {
+  grid-column: 1 / -1;
+  padding: 14px;
+  border-radius: 16px;
+  border: 1px solid var(--border);
+  background: rgba(15, 23, 42, 0.02);
+}
+
+.variants-head {
+  display: flex;
+  align-items: flex-start;
+  justify-content: space-between;
+  gap: 12px;
+  margin-bottom: 12px;
+}
+
+.variants-head .variants-title {
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+}
+
+.variants-head h3 {
+  margin: 0;
+  font-size: 14px;
+  font-weight: 900;
+}
+
+.variants-head p {
+  margin: 0;
+  font-size: 12px;
+  color: var(--muted);
+}
+
+.add-variant {
+  padding: 10px 12px;
+  border-radius: 999px;
+  border: 1px solid var(--border);
+  background: var(--surface);
+  font-weight: 900;
+  white-space: nowrap;
+}
+
+.variant-card {
+  border: 1px solid var(--border);
+  background: var(--surface);
+  border-radius: 16px;
+  padding: 12px;
+  box-shadow: var(--shadow-xs);
+  margin-top: 10px;
+}
+
+.variant-top {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 10px;
+}
+
+.variant-title {
+  display: inline-flex;
+  align-items: center;
+  gap: 10px;
+  font-weight: 900;
+}
+
+.swatch {
+  width: 16px;
+  height: 16px;
+  border-radius: 999px;
+  border: 1px solid var(--border);
+}
+
+.remove-variant {
+  padding: 8px 10px;
+  border-radius: 999px;
+  border: 1px solid rgba(239, 68, 68, 0.18);
+  background: rgba(239, 68, 68, 0.10);
+  color: #991b1b;
+  font-weight: 900;
+  white-space: nowrap;
+}
+
+.variant-fields {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 10px;
+  margin-top: 10px;
+}
+
+.variant-fields input:nth-child(3) {
+  grid-column: 1 / -1;
+}
+
+.sizes-head {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 12px;
+  margin-top: 12px;
+}
+
+.sizes-head h4 {
+  margin: 0;
+  font-size: 13px;
+  font-weight: 900;
+}
+
+.add-size {
+  padding: 8px 10px;
+  border-radius: 999px;
+  border: 1px solid var(--border);
+  background: var(--surface);
+  font-weight: 900;
+  white-space: nowrap;
+}
+
+.sizes-grid {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  margin-top: 10px;
+}
+
+.size-row {
+  display: grid;
+  grid-template-columns: 140px 1fr 44px;
+  gap: 10px;
+  align-items: center;
+}
+
+.size-row select,
+.size-row input {
+  width: 100%;
+}
+
+.size-row .remove-size {
+  width: 44px;
+  height: 44px;
+  border-radius: 12px;
+  border: 1px solid var(--border);
+  background: rgba(15, 23, 42, 0.02);
+  font-weight: 900;
+  display: grid;
+  place-items: center;
+  color: #111;
+}
+
+.size-row .remove-size:hover {
+  background: rgba(239, 68, 68, 0.12);
+  border-color: rgba(239, 68, 68, 0.22);
+  color: #991b1b;
+}
+
+@media (max-width: 900px) {
+  .admin-dashboard {
+    width: calc(100% - 32px);
+  }
+}
+
+@media (max-width: 720px) {
+  .product-form {
+    grid-template-columns: 1fr;
+  }
+
+  .product-form textarea,
+  .product-form button {
+    grid-column: auto;
+  }
+
+  .variants-head {
+    flex-direction: column;
+    align-items: stretch;
+  }
+
+  .variant-fields {
+    grid-template-columns: 1fr;
+  }
+
+  .size-row {
+    grid-template-columns: 1fr 1fr 44px;
+  }
+}
+
+@media (max-width: 640px) {
+  .admin-dashboard {
+    width: calc(100% - 24px);
+  }
 }
