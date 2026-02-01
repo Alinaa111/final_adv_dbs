@@ -8,6 +8,8 @@ const Navbar = () => {
   const { isAuthenticated, user, logout, isAdmin } = useAuth();
   const { getCartItemsCount } = useCart();
 
+  const admin = typeof isAdmin === 'function' ? isAdmin() : false;
+
   return (
     <nav className="navbar">
       <div className="nav-container">
@@ -18,12 +20,17 @@ const Navbar = () => {
         <ul className="nav-menu">
           <li><Link to="/">Home</Link></li>
           <li><Link to="/shop">Shop</Link></li>
-          
+
           {isAuthenticated ? (
             <>
-              <li><Link to="/cart">🛒 Cart ({getCartItemsCount()})</Link></li>
+              {!admin && (
+                <li>
+                  <Link to="/cart">🛒 Cart ({getCartItemsCount()})</Link>
+                </li>
+              )}
+
               <li><Link to="/profile">Profile</Link></li>
-              {isAdmin() && <li><Link to="/admin">Admin</Link></li>}
+              {admin && <li><Link to="/admin">Admin</Link></li>}
               <li><button onClick={logout} className="logout-btn">Logout</button></li>
               <li className="user-greeting">Hi, {user?.name}</li>
             </>

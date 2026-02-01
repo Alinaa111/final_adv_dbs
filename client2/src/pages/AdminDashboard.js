@@ -15,6 +15,7 @@ const AdminDashboard = () => {
     brand: 'Nike',
     category: 'Running',
     price: 0,
+    discountPercentage: 0,
     description: '',
     mainImage: '',
     gender: 'Unisex',
@@ -93,6 +94,12 @@ const AdminDashboard = () => {
       return `#${a}${a}${b}${b}${c}${c}`;
     }
     return h;
+  };
+
+  const clampDiscount = (v) => {
+    const n = Number(v);
+    if (Number.isNaN(n)) return 0;
+    return Math.max(0, Math.min(90, n));
   };
 
   const updateColorField = (colorIndex, field, value) => {
@@ -187,6 +194,7 @@ const AdminDashboard = () => {
       const productData = {
         ...formData,
         price: Number(formData.price) || 0,
+        discountPercentage: clampDiscount(formData.discountPercentage),
         colors: cleanedColors
       };
 
@@ -230,6 +238,7 @@ const AdminDashboard = () => {
       brand: product?.brand || 'Nike',
       category: product?.category || 'Running',
       price: Number(product?.price) || 0,
+      discountPercentage: clampDiscount(product?.discountPercentage ?? 0),
       description: product?.description || '',
       mainImage: product?.mainImage || '',
       gender: product?.gender || 'Unisex',
@@ -291,6 +300,7 @@ const AdminDashboard = () => {
                 onChange={(e) => setFormData({ ...formData, name: e.target.value })}
                 required
               />
+
               <select
                 value={formData.brand}
                 onChange={(e) => setFormData({ ...formData, brand: e.target.value })}
@@ -303,6 +313,7 @@ const AdminDashboard = () => {
                 <option value="Converse">Converse</option>
                 <option value="Vans">Vans</option>
               </select>
+
               <select
                 value={formData.category}
                 onChange={(e) => setFormData({ ...formData, category: e.target.value })}
@@ -312,6 +323,7 @@ const AdminDashboard = () => {
                 <option value="Casual">Casual</option>
                 <option value="Training">Training</option>
               </select>
+
               <input
                 type="number"
                 placeholder="Price"
@@ -319,12 +331,25 @@ const AdminDashboard = () => {
                 onChange={(e) => setFormData({ ...formData, price: e.target.value })}
                 required
               />
+
+              <input
+                type="number"
+                placeholder="Discount % (0-90)"
+                min="0"
+                max="90"
+                value={formData.discountPercentage}
+                onChange={(e) =>
+                  setFormData({ ...formData, discountPercentage: clampDiscount(e.target.value) })
+                }
+              />
+
               <textarea
                 placeholder="Description"
                 value={formData.description}
                 onChange={(e) => setFormData({ ...formData, description: e.target.value })}
                 required
               />
+
               <input
                 type="url"
                 placeholder="Image URL"
@@ -332,6 +357,7 @@ const AdminDashboard = () => {
                 onChange={(e) => setFormData({ ...formData, mainImage: e.target.value })}
                 required
               />
+
               <select
                 value={formData.gender}
                 onChange={(e) => setFormData({ ...formData, gender: e.target.value })}

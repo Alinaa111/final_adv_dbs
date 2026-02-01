@@ -5,12 +5,15 @@ import '../styles/Profile.css';
 
 const Profile = () => {
   const { user } = useAuth();
+  const isAdmin = String(user?.role || '').toLowerCase() === 'admin';
+
   const [orders, setOrders] = useState([]);
   const [loading, setLoading] = useState(true);
 
   useEffect(() => {
-    fetchOrders();
-  }, []);
+    if (!isAdmin) fetchOrders();
+    else setLoading(false);
+  }, [isAdmin]);
 
   const fetchOrders = async () => {
     try {
@@ -25,11 +28,11 @@ const Profile = () => {
 
   const getStatusColor = (status) => {
     const colors = {
-      'Pending': 'orange',
-      'Processing': 'blue',
-      'Shipped': 'purple',
-      'Delivered': 'green',
-      'Cancelled': 'red'
+      Pending: 'orange',
+      Processing: 'blue',
+      Shipped: 'purple',
+      Delivered: 'green',
+      Cancelled: 'red'
     };
     return colors[status] || 'gray';
   };
@@ -39,7 +42,6 @@ const Profile = () => {
       <h1>My Profile</h1>
 
       <div className="profile-container">
-        {/* User Info */}
         <section className="user-info-section">
           <h2>Account Information</h2>
           <div className="info-card">
@@ -58,61 +60,60 @@ const Profile = () => {
           </div>
         </section>
 
-        {/* Order History */}
-        <section className="orders-section">
-          <h2>Order History</h2>
-          {loading ? (
-            <p>Loading orders...</p>
-          ) : orders.length === 0 ? (
-            <p>No orders yet. Start shopping!</p>
-          ) : (
-            <div className="orders-list">
-              {orders.map(order => (
-                <div key={order._id} className="order-card">
-                  <div className="order-header">
-                    <div>
-                      <strong>Order #{order._id.slice(-8).toUpperCase()}</strong>
-                      <p className="order-date">
-                        {new Date(order.createdAt).toLocaleDateString()}
-                      </p>
-                    </div>
-                    <span 
-                      className="status-badge"
-                      style={{ backgroundColor: getStatusColor(order.orderStatus) }}
-                    >
-                      {order.orderStatus}
-                    </span>
-                  </div>
-
-                  <div className="order-items">
-                    {order.items.map((item, idx) => (
-                      <div key={idx} className="order-item">
-                        <img src={item.productImage} alt={item.productName} />
-                        <div className="item-info">
-                          <p className="item-name">{item.productName}</p>
-                          <p className="item-details">
-                            {item.brand} • {item.color} • Size {item.size} • Qty: {item.quantity}
-                          </p>
-                        </div>
-                        <p className="item-price">${item.subtotal.toFixed(2)}</p>
+        {!isAdmin && (
+          <section className="orders-section">
+            <h2>Order History</h2>
+            {loading ? (
+              <p>Loading orders...</p>
+            ) : orders.length === 0 ? (
+              <p>No orders yet. Start shopping!</p>
+            ) : (
+              <div className="orders-list">
+                {orders.map((order) => (
+                  <div key={order._id} className="order-card">
+                    <div className="order-header">
+                      <div>
+                        <strong>Order #{order._id.slice(-8).toUpperCase()}</strong>
+                        <p className="order-date">
+                          {new Date(order.createdAt).toLocaleDateString()}
+                        </p>
                       </div>
-                    ))}
-                  </div>
-
-                  <div className="order-footer">
-                    <div className="order-total">
-                      <strong>Total:</strong>
-                      <strong>${order.totalAmount.toFixed(2)}</strong>
+                      <span
+                        className="status-badge"
+                        style={{ backgroundColor: getStatusColor(order.orderStatus) }}
+                      >
+                        {order.orderStatus}
+                      </span>
                     </div>
-                    {order.trackingNumber && (
-                      <p>Tracking: {order.trackingNumber}</p>
-                    )}
+
+                    <div className="order-items">
+                      {order.items.map((item, idx) => (
+                        <div key={idx} className="order-item">
+                          <img src={item.productImage} alt={item.productName} />
+                          <div className="item-info">
+                            <p className="item-name">{item.productName}</p>
+                            <p className="item-details">
+                              {item.brand} • {item.color} • Size {item.size} • Qty: {item.quantity}
+                            </p>
+                          </div>
+                          <p className="item-price">${item.subtotal.toFixed(2)}</p>
+                        </div>
+                      ))}
+                    </div>
+
+                    <div className="order-footer">
+                      <div className="order-total">
+                        <strong>Total:</strong>
+                        <strong>${order.totalAmount.toFixed(2)}</strong>
+                      </div>
+                      {order.trackingNumber && <p>Tracking: {order.trackingNumber}</p>}
+                    </div>
                   </div>
-                </div>
-              ))}
-            </div>
-          )}
-        </section>
+                ))}
+              </div>
+            )}
+          </section>
+        )}
       </div>
     </div>
   );
