@@ -16,6 +16,7 @@ import Profile from './pages/Profile';
 import AdminDashboard from './pages/AdminDashboard';
 import Login from './pages/Login';
 import Register from './pages/Register';
+import Checkout from './pages/Checkout';
 
 import './App.css';
 import './styles/base.css';
@@ -60,6 +61,14 @@ function App() {
                   element={
                     <ProtectedRoute>
                       <Cart />
+                    </ProtectedRoute>
+                  } 
+                />
+                <Route 
+                  path="/checkout" 
+                  element={
+                    <ProtectedRoute>
+                      <Checkout />
                     </ProtectedRoute>
                   } 
                 />
