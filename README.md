@@ -17,7 +17,7 @@ This project demonstrates advanced MongoDB features including:
 
 ## 📋 Team Division
 
-### Aliya: Data & Security Specialist
+### Alina: Data & Security Specialist
 **Responsibilities:**
 - ✅ Database Setup & Schema Design
 - ✅ Authentication System (JWT)
@@ -37,7 +37,7 @@ This project demonstrates advanced MongoDB features including:
 - `/server/seed.js` - Database seeder
 - `/server/server.js`- Server connection
 
-### Alina: Full-Stack & UX Specialist
+### Aliya: Full-Stack & UX Specialist
 **Responsibilities:**
 - ✅ Frontend Development (React)
 - ✅ API Integration (Axios)
