@@ -1,12 +1,10 @@
 const Order = require('../models/Order');
 const Product = require('../models/Product');
 
-// ===============================================
 // @desc    Create new order
 // @route   POST /api/orders
 // @access  Private
-// DEMONSTRATES: References, Embedded Documents, Transactions
-// ===============================================
+// There are References, Embedded Documents, Transactions
 const createOrder = async (req, res) => {
   try {
     const { items, shippingAddress, paymentMethod, customerNotes } = req.body;
@@ -124,12 +122,10 @@ const createOrder = async (req, res) => {
   }
 };
 
-// ===============================================
 // @desc    Get user's orders
 // @route   GET /api/orders/me
 // @access  Private
-// DEMONSTRATES: References with populate
-// ===============================================
+// Contains References with populate
 const getMyOrders = async (req, res) => {
   try {
     const orders = await Order.find({ user: req.user._id })
@@ -150,11 +146,9 @@ const getMyOrders = async (req, res) => {
   }
 };
 
-// ===============================================
 // @desc    Get single order by ID
 // @route   GET /api/orders/:id
 // @access  Private
-// ===============================================
 const getOrderById = async (req, res) => {
   try {
     const order = await Order.findById(req.params.id)
@@ -189,11 +183,9 @@ const getOrderById = async (req, res) => {
   }
 };
 
-// ===============================================
 // @desc    Get all orders (Admin)
 // @route   GET /api/orders
 // @access  Private/Admin
-// ===============================================
 const getAllOrders = async (req, res) => {
   try {
     const { status, page = 1, limit = 20 } = req.query;
@@ -230,11 +222,9 @@ const getAllOrders = async (req, res) => {
   }
 };
 
-// ===============================================
 // @desc    Update order status (Admin)
 // @route   PATCH /api/orders/:id/status
 // @access  Private/Admin
-// ===============================================
 const updateOrderStatus = async (req, res) => {
   try {
     const { status, note } = req.body;
@@ -271,11 +261,9 @@ const updateOrderStatus = async (req, res) => {
   }
 };
 
-// ===============================================
 // @desc    Cancel order
 // @route   DELETE /api/orders/:id
 // @access  Private
-// ===============================================
 const cancelOrder = async (req, res) => {
   try {
     const order = await Order.findById(req.params.id);

@@ -1,10 +1,8 @@
 const mongoose = require('mongoose');
 
-// ===============================================
-// EMBEDDED SCHEMA: Order Item
-// Demonstrates: Embedded Documents with Product References
-// Denormalization: Store product details at order time
-// ===============================================
+// Embedded Schema Order Item
+// Demonstrates Embedded Documents with Product References
+//  Store product details at order time
 const orderItemSchema = new mongoose.Schema({
   product: {
     type: mongoose.Schema.Types.ObjectId,
@@ -49,9 +47,8 @@ const orderItemSchema = new mongoose.Schema({
   }
 }, { _id: false });
 
-// ===============================================
-// EMBEDDED SCHEMA: Shipping Address
-// ===============================================
+
+// Embedded Schema: Shipping Address
 const shippingAddressSchema = new mongoose.Schema({
   street: { type: String, required: true, trim: true },
   city: { type: String, required: true, trim: true },
@@ -61,9 +58,8 @@ const shippingAddressSchema = new mongoose.Schema({
   phoneNumber: { type: String, required: true, trim: true }
 }, { _id: false });
 
-// ===============================================
-// MAIN SCHEMA: Order
-// Advanced Features Demonstrated:
+// Main schema: Order
+// Advanced Features :
 // 1. References to User collection
 // 2. Array of embedded order items
 // 3. Embedded shipping address
@@ -71,15 +67,14 @@ const shippingAddressSchema = new mongoose.Schema({
 // 5. Denormalization for historical data
 // 6. Pre-save calculations
 // 7. Status tracking with timestamps
-// ===============================================
 const orderSchema = new mongoose.Schema({
-  // REFERENCE: Link to User who placed the order
+  // Ref1 Link to User who placed the order
   user: {
     type: mongoose.Schema.Types.ObjectId,
     ref: 'User',
     required: true
   },
-  // Denormalized user info (snapshot at order time)
+  // Denormalized user info 
   userEmail: {
     type: String,
     required: true
@@ -88,7 +83,7 @@ const orderSchema = new mongoose.Schema({
     type: String,
     required: true
   },
-  // EMBEDDED DOCUMENTS: Order items
+  // Embedded doc: Order items
   items: {
     type: [orderItemSchema],
     validate: {
@@ -98,7 +93,7 @@ const orderSchema = new mongoose.Schema({
       message: 'Order must contain at least one item'
     }
   },
-  // EMBEDDED DOCUMENT: Shipping address
+  // Embedded doc: Shipping address
   shippingAddress: {
     type: shippingAddressSchema,
     required: true
@@ -176,9 +171,7 @@ const orderSchema = new mongoose.Schema({
   toObject: { virtuals: true }
 });
 
-// ===============================================
-// INDEXES (Advanced Feature)
-// ===============================================
+// INDEXES 
 
 // Compound index on user and createdAt for user order history
 orderSchema.index({ user: 1, createdAt: -1 });
@@ -192,9 +185,8 @@ orderSchema.index({ paymentStatus: 1 });
 // Compound index for analytics
 orderSchema.index({ createdAt: -1, orderStatus: 1 });
 
-// ===============================================
-// VIRTUAL PROPERTIES
-// ===============================================
+
+// Virtual Properties
 
 // Calculate total items in order
 orderSchema.virtual('totalItems').get(function() {
@@ -212,9 +204,7 @@ orderSchema.virtual('daysSinceOrder').get(function() {
   return Math.ceil(diffTime / (1000 * 60 * 60 * 24));
 });
 
-// ===============================================
-// PRE-SAVE HOOKS
-// ===============================================
+// Pre-save HOOKS
 
 // Calculate totals before saving
 orderSchema.pre('save', function(next) {
@@ -242,10 +232,7 @@ orderSchema.pre('save', function(next) {
   next();
 });
 
-// ===============================================
 // STATIC METHODS
-// Advanced queries
-// ===============================================
 
 // Find orders by status
 orderSchema.statics.findByStatus = function(status) {
@@ -272,9 +259,7 @@ orderSchema.statics.findByUser = function(userId) {
     .populate('items.product', 'name brand');
 };
 
-// ===============================================
 // INSTANCE METHODS
-// ===============================================
 
 // Update order status
 orderSchema.methods.updateStatus = function(newStatus, note = '') {

@@ -341,7 +341,7 @@ const seedDatabase = async () => {
       0
     );
 
-    const totalAmount = orderSubtotal; // no tax/shipping for seed
+    const totalAmount = orderSubtotal; 
 
 
     const sampleOrder = await Order.create({
@@ -364,22 +364,15 @@ const seedDatabase = async () => {
     });
 
 
-    console.log('✅ Created sample order');
+    console.log(' Created sample order');
 
-    console.log('\n╔═══════════════════════════════════════════════════════╗');
-    console.log('║                                                       ║');
-    console.log('║   ✅ Database seeded successfully!                    ║');
-    console.log('║                                                       ║');
-    console.log('║   📊 Summary:                                         ║');
-    console.log(`║   • Users: ${createdUsers.length}                                          ║`);
-    console.log(`║   • Products: ${createdProducts.length}                                       ║`);
-    console.log('║   • Orders: 1                                         ║');
-    console.log('║                                                       ║');
+    console.log('\n');
+    console.log('║    Database seeded successfully!                    ║');
+    
     console.log('║   🔐 Test Credentials:                                ║');
     console.log('║   Admin:  admin@shoestore.com / admin123             ║');
     console.log('║   User:   john@example.com / password123             ║');
-    console.log('║                                                       ║');
-    console.log('╚═══════════════════════════════════════════════════════╝\n');
+    console.log('\n');
 
     process.exit(0);
   } catch (error) {

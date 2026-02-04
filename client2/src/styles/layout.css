@@ -1,5 +1,3 @@
-/* Layout helpers */
-
 .container {
   width: min(1180px, calc(100% - 48px));
   margin: 0 auto;

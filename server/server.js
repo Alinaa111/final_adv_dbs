@@ -16,9 +16,7 @@ const app = express();
 // Connect to MongoDB
 connectDB();
 
-// ===============================================
-// MIDDLEWARE
-// ===============================================
+// MIDDLEWARE=
 
 // Body parser
 app.use(express.json());
@@ -49,9 +47,7 @@ if (process.env.NODE_ENV === 'development') {
   });
 }
 
-// ===============================================
 // ROUTES
-// ===============================================
 
 // Health check
 app.get('/', (req, res) => {
@@ -85,28 +81,16 @@ app.use((req, res) => {
 // Error handler (must be last)
 app.use(errorHandler);
 
-// ===============================================
 // START SERVER
-// ===============================================
 
 const PORT = process.env.PORT || 5000;
 
 const server = app.listen(PORT, () => {
   console.log(`
-╔═══════════════════════════════════════════════════════╗
-║                                                       ║
-║   🚀 Shoe Store API Server                           ║
-║                                                       ║
-║   📍 Running on: http://localhost:${PORT}              ║
-║   🌍 Environment: ${process.env.NODE_ENV || 'development'}                    ║
-║                                                       ║
-║   📚 API Endpoints:                                   ║
-║   • Auth:      /api/auth                             ║
-║   • Products:  /api/products                         ║
-║   • Orders:    /api/orders                           ║
-║   • Analytics: /api/stats                            ║
-║                                                       ║
-╚═══════════════════════════════════════════════════════╝
+   🚀 Shoe Store API Server                   
+            
+   📍 Running on: http://localhost:${PORT}              
+   🌍 Environment: ${process.env.NODE_ENV || 'development'}             
   `);
 });
 

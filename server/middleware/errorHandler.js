@@ -1,7 +1,5 @@
-// ===============================================
-// MIDDLEWARE: Error Handler
+// Middleware: Error Handler
 // Centralized error handling
-// ===============================================
 
 const errorHandler = (err, req, res, next) => {
   let error = { ...err };

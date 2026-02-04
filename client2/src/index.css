@@ -1,6 +1,3 @@
-/* Keep this file tiny.
-   Global design system lives in src/styles/base.css + ui.css (imported in App.js). */
-
 html, body {
   height: 100%;
 }
