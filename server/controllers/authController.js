@@ -1,20 +1,16 @@
 const User = require('../models/User');
 const jwt = require('jsonwebtoken');
 
-// ===============================================
-// HELPER: Generate JWT Token
-// ===============================================
+//  Generate JWT Token]
 const generateToken = (id) => {
   return jwt.sign({ id }, process.env.JWT_SECRET, {
     expiresIn: '30d' // Token expires in 30 days
   });
 };
 
-// ===============================================
 // @desc    Register new user
 // @route   POST /api/auth/register
 // @access  Public
-// ===============================================
 const register = async (req, res) => {
   try {
     const { name, email, password, phoneNumber, address } = req.body;
@@ -70,11 +66,9 @@ const register = async (req, res) => {
   }
 };
 
-// ===============================================
 // @desc    Login user
 // @route   POST /api/auth/login
 // @access  Public
-// ===============================================
 const login = async (req, res) => {
   try {
     const { email, password } = req.body;
@@ -144,11 +138,9 @@ const login = async (req, res) => {
   }
 };
 
-// ===============================================
 // @desc    Get current user profile
 // @route   GET /api/auth/me
 // @access  Private
-// ===============================================
 const getMe = async (req, res) => {
   try {
     const user = await User.findById(req.user.id);
@@ -166,11 +158,9 @@ const getMe = async (req, res) => {
   }
 };
 
-// ===============================================
 // @desc    Update user profile
 // @route   PUT /api/auth/profile
 // @access  Private
-// ===============================================
 const updateProfile = async (req, res) => {
   try {
     const { name, phoneNumber, address } = req.body;

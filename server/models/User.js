@@ -1,10 +1,8 @@
 const mongoose = require('mongoose');
 const bcrypt = require('bcryptjs');
 
-// ===============================================
 // EMBEDDED SCHEMA: Address
 // Demonstrates: Embedded Documents (Advanced Feature)
-// ===============================================
 const addressSchema = new mongoose.Schema({
   street: { type: String, trim: true },
   city: { type: String, trim: true },
@@ -13,16 +11,7 @@ const addressSchema = new mongoose.Schema({
   country: { type: String, default: 'USA' }
 }, { _id: false });
 
-// ===============================================
 // MAIN SCHEMA: User
-// Advanced Features Demonstrated:
-// 1. Embedded Documents (address)
-// 2. Enum validation (role)
-// 3. Custom validation (email)
-// 4. Compound indexes
-// 5. Virtual properties
-// 6. Pre-save hooks
-// ===============================================
 const userSchema = new mongoose.Schema({
   name: {
     type: String,
@@ -43,7 +32,7 @@ const userSchema = new mongoose.Schema({
     type: String,
     required: [true, 'Password is required'],
     minlength: [6, 'Password must be at least 6 characters'],
-    select: false // Don't return password by default in queries
+    select: false 
   },
   role: {
     type: String,
@@ -76,17 +65,13 @@ const userSchema = new mongoose.Schema({
   toObject: { virtuals: true }
 });
 
-// ===============================================
 // INDEXES (Advanced Feature)
 // Compound index on email and role for faster queries
-// ===============================================
 userSchema.index({ email: 1, role: 1 });
-userSchema.index({ createdAt: -1 }); // For sorting users by registration date
+userSchema.index({ createdAt: -1 }); 
 
-// ===============================================
 // VIRTUAL PROPERTY
 // Calculate how long user has been registered
-// ===============================================
 userSchema.virtual('membershipDuration').get(function() {
   if (!this.createdAt) return 0;
   const diffTime = Math.abs(new Date() - this.createdAt);
@@ -94,10 +79,8 @@ userSchema.virtual('membershipDuration').get(function() {
   return diffDays;
 });
 
-// ===============================================
 // PRE-SAVE HOOK (Middleware)
 // Hash password before saving to database
-// ===============================================
 userSchema.pre('save', async function(next) {
   // Only hash the password if it's modified
   if (!this.isModified('password')) return next();
@@ -111,18 +94,14 @@ userSchema.pre('save', async function(next) {
   }
 });
 
-// ===============================================
 // INSTANCE METHOD
 // Compare password for login
-// ===============================================
 userSchema.methods.comparePassword = async function(candidatePassword) {
   return await bcrypt.compare(candidatePassword, this.password);
 };
 
-// ===============================================
 // INSTANCE METHOD
 // Remove sensitive data when converting to JSON
-// ===============================================
 userSchema.methods.toJSON = function() {
   const user = this.toObject();
   delete user.password;
@@ -130,10 +109,8 @@ userSchema.methods.toJSON = function() {
   return user;
 };
 
-// ===============================================
 // STATIC METHOD
 // Find users by role
-// ===============================================
 userSchema.statics.findByRole = function(role) {
   return this.find({ role, isActive: true });
 };

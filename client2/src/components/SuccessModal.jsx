@@ -1,3 +1,4 @@
+// SuccessModal.jsx for showing order success details
 import { motion, AnimatePresence } from "framer-motion";
 import { useNavigate } from "react-router-dom";
 import './SuccessModal.css';

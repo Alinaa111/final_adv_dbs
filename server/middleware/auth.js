@@ -1,10 +1,8 @@
 const jwt = require('jsonwebtoken');
 const User = require('../models/User');
 
-// ===============================================
 // MIDDLEWARE: Verify JWT Token
 // Protects routes that require authentication
-// ===============================================
 const protect = async (req, res, next) => {
   try {
     let token;
@@ -59,10 +57,8 @@ const protect = async (req, res, next) => {
   }
 };
 
-// ===============================================
-// MIDDLEWARE: Authorize Admin Role
+// Middleware Authorize Admin Role
 // Use after protect middleware
-// ===============================================
 const authorizeAdmin = (req, res, next) => {
   if (req.user && req.user.role === 'admin') {
     next();
@@ -74,10 +70,8 @@ const authorizeAdmin = (req, res, next) => {
   }
 };
 
-// ===============================================
-// MIDDLEWARE: Authorize Specific Roles
+// Middleware: Authorize Specific Roles
 // Flexible role authorization
-// ===============================================
 const authorizeRoles = (...roles) => {
   return (req, res, next) => {
     if (!req.user) {

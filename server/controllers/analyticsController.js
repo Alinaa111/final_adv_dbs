@@ -1,12 +1,10 @@
 const Order = require('../models/Order');
 const Product = require('../models/Product');
 
-// ===============================================
 // @desc    Get revenue statistics
 // @route   GET /api/stats/revenue
 // @access  Private/Admin
-// DEMONSTRATES: Aggregation Pipeline - $group, $match, $sort
-// ===============================================
+//  Aggregation Pipeline - $group, $match, $sort
 const getRevenueStats = async (req, res) => {
   try {
     const { startDate, endDate } = req.query;
@@ -20,7 +18,7 @@ const getRevenueStats = async (req, res) => {
       if (endDate) matchStage.createdAt.$lte = new Date(endDate);
     }
 
-    // ADVANCED AGGREGATION PIPELINE
+    // AGGREGATION PIPELINE
     const revenueByCategory = await Order.aggregate([
       // Stage 1: Match orders that aren't cancelled
       { $match: matchStage },
@@ -97,19 +95,17 @@ const getRevenueStats = async (req, res) => {
   }
 };
 
-// ===============================================
 // @desc    Get top-rated products
 // @route   GET /api/stats/top-rated
 // @access  Public
-// DEMONSTRATES: Aggregation Pipeline - $match, $sort, $limit
-// ===============================================
+//  Aggregation Pipeline - $match, $sort, $limit
 const getTopRatedProducts = async (req, res) => {
   try {
     const limit = parseInt(req.query.limit) || 5;
 
-    // ADVANCED AGGREGATION PIPELINE
+    // AGGREGATION PIPELINE
     const topRated = await Product.aggregate([
-      // Stage 1: Match only active products with reviews
+      // 1. Match only active products with reviews
       {
         $match: {
           isActive: true,
@@ -117,7 +113,7 @@ const getTopRatedProducts = async (req, res) => {
         }
       },
       
-      // Stage 2: Sort by average rating and review count
+      // 2. Sort by average rating and review count
       {
         $sort: {
           averageRating: -1,
@@ -125,10 +121,10 @@ const getTopRatedProducts = async (req, res) => {
         }
       },
       
-      // Stage 3: Limit results
+      // 3. Limit results
       { $limit: limit },
       
-      // Stage 4: Project only needed fields
+      // 4. Project only needed fields
       {
         $project: {
           name: 1,
@@ -157,12 +153,10 @@ const getTopRatedProducts = async (req, res) => {
   }
 };
 
-// ===============================================
 // @desc    Get best-selling products
 // @route   GET /api/stats/best-sellers
 // @access  Public
-// DEMONSTRATES: Aggregation Pipeline - complex sorting
-// ===============================================
+//  Aggregation Pipeline - complex sorting
 const getBestSellers = async (req, res) => {
   try {
     const limit = parseInt(req.query.limit) || 10;
@@ -174,18 +168,18 @@ const getBestSellers = async (req, res) => {
       matchStage.category = category;
     }
 
-    // ADVANCED AGGREGATION PIPELINE
+    // AGGREGATION PIPELINE
     const bestSellers = await Product.aggregate([
-      // Stage 1: Match criteria
+      // 1. Match criteria
       { $match: matchStage },
       
-      // Stage 2: Sort by sold count
+      // 2. Sort by sold count
       { $sort: { soldCount: -1, averageRating: -1 } },
       
-      // Stage 3: Limit results
+      // 3. Limit results
       { $limit: limit },
       
-      // Stage 4: Add computed fields
+      // 4. Add computed fields
       {
         $addFields: {
           popularityScore: {
@@ -197,7 +191,7 @@ const getBestSellers = async (req, res) => {
         }
       },
       
-      // Stage 5: Project fields
+      // 5. Project fields
       {
         $project: {
           name: 1,
@@ -227,12 +221,10 @@ const getBestSellers = async (req, res) => {
   }
 };
 
-// ===============================================
 // @desc    Get sales trends over time
 // @route   GET /api/stats/sales-trends
 // @access  Private/Admin
-// DEMONSTRATES: Aggregation Pipeline - $dateToString, time-based grouping
-// ===============================================
+//  Aggregation Pipeline - $dateToString, time-based grouping
 const getSalesTrends = async (req, res) => {
   try {
     const { period = 'daily', days = 30 } = req.query;
@@ -260,9 +252,9 @@ const getSalesTrends = async (req, res) => {
         dateFormat = '%Y-%m-%d';
     }
 
-    // ADVANCED AGGREGATION PIPELINE
+    // AGGREGATION PIPELINE
     const trends = await Order.aggregate([
-      // Stage 1: Match orders in date range
+      // 1. Match orders in date range
       {
         $match: {
           createdAt: { $gte: startDate },
@@ -270,7 +262,7 @@ const getSalesTrends = async (req, res) => {
         }
       },
       
-      // Stage 2: Group by time period
+      // 2. Group by time period
       {
         $group: {
           _id: {
@@ -291,10 +283,10 @@ const getSalesTrends = async (req, res) => {
         }
       },
       
-      // Stage 3: Sort by date
+      // 3. Sort by date
       { $sort: { _id: 1 } },
       
-      // Stage 4: Project formatted results
+      // 4. Project formatted results
       {
         $project: {
           date: '$_id',
@@ -323,12 +315,10 @@ const getSalesTrends = async (req, res) => {
   }
 };
 
-// ===============================================
 // @desc    Get inventory report
 // @route   GET /api/stats/inventory
 // @access  Private/Admin
-// DEMONSTRATES: Aggregation Pipeline - complex calculations
-// ===============================================
+//  Aggregation Pipeline - complex calculations
 const getInventoryReport = async (req, res) => {
   try {
     // Get low stock products
@@ -346,7 +336,7 @@ const getInventoryReport = async (req, res) => {
       totalStock: 0
     });
 
-    // ADVANCED AGGREGATION: Stock value by category
+    // Stock value by category
     const stockValueByCategory = await Product.aggregate([
       { $match: { isActive: true } },
       {
@@ -390,24 +380,22 @@ const getInventoryReport = async (req, res) => {
   }
 };
 
-// ===============================================
 // @desc    Get customer insights
 // @route   GET /api/stats/customers
 // @access  Private/Admin
-// DEMONSTRATES: Aggregation Pipeline - $lookup, complex joins
-// ===============================================
+//  Aggregation Pipeline - $lookup, complex joins
 const getCustomerInsights = async (req, res) => {
   try {
-    // ADVANCED AGGREGATION: Top customers by revenue
+    //  AGGREGATION: Top customers by revenue
     const topCustomers = await Order.aggregate([
-      // Stage 1: Match completed orders
+      // 1. Match completed orders
       {
         $match: {
           orderStatus: { $in: ['Delivered', 'Shipped'] }
         }
       },
       
-      // Stage 2: Group by user
+      // 2. Group by user
       {
         $group: {
           _id: '$user',
@@ -420,13 +408,13 @@ const getCustomerInsights = async (req, res) => {
         }
       },
       
-      // Stage 3: Sort by total spent
+      // 3. Sort by total spent
       { $sort: { totalSpent: -1 } },
       
-      // Stage 4: Limit to top 10
+      // 4. Limit to top 10
       { $limit: 10 },
       
-      // Stage 5: Project formatted results
+      // 5. Project formatted results
       {
         $project: {
           userId: '$_id',

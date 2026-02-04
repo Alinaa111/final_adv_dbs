@@ -1,8 +1,8 @@
 :root {
   /* Brand */
-  --primary: #0f172a;       /* deep navy */
-  --primary-2: #111827;     /* darker */
-  --accent: #e10600;        /* red */
+  --primary: #0f172a;       
+  --primary-2: #111827;     
+  --accent: #e10600;       
 
   /* Surfaces */
   --bg: #f6f7fb;

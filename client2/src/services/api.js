@@ -38,9 +38,7 @@ api.interceptors.response.use(
   }
 );
 
-// ==============================================
 // AUTH SERVICES
-// ==============================================
 export const authService = {
   register: (userData) => api.post('/auth/register', userData),
   login: (credentials) => api.post('/auth/login', credentials),
@@ -48,9 +46,7 @@ export const authService = {
   updateProfile: (userData) => api.put('/auth/profile', userData)
 };
 
-// ==============================================
 // PRODUCT SERVICES
-// ==============================================
 export const productService = {
   getAll: (params) => api.get('/products', { params }),
   getById: (id) => api.get(`/products/${id}`),
@@ -62,9 +58,7 @@ export const productService = {
   addReview: (id, reviewData) => api.post(`/products/${id}/reviews`, reviewData)
 };
 
-// ==============================================
 // ORDER SERVICES
-// ==============================================
 export const orderService = {
   create: (orderData) => api.post('/orders', orderData),
   getMyOrders: () => api.get('/orders/me'),
@@ -74,9 +68,7 @@ export const orderService = {
   cancel: (id) => api.delete(`/orders/${id}`)
 };
 
-// ==============================================
 // ANALYTICS SERVICES
-// ==============================================
 export const analyticsService = {
   getRevenue: (params) => api.get('/stats/revenue', { params }),
   getTopRated: (params) => api.get('/stats/top-rated', { params }),

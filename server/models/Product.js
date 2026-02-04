@@ -1,9 +1,7 @@
 const mongoose = require('mongoose');
 
-// ===============================================
-// EMBEDDED SCHEMA: Size Variant
-// Demonstrates: Array of Embedded Documents
-// ===============================================
+// Embedded Schema: Size Variant
+//  Array of Embedded Documents
 const sizeVariantSchema = new mongoose.Schema({
   size: {
     type: String,
@@ -18,10 +16,8 @@ const sizeVariantSchema = new mongoose.Schema({
   }
 }, { _id: false });
 
-// ===============================================
-// EMBEDDED SCHEMA: Color Option
-// Demonstrates: Nested Embedded Documents
-// ===============================================
+// Embedded Schema: Color Option
+// Nested Embedded Documents
 const colorOptionSchema = new mongoose.Schema({
   name: {
     type: String,
@@ -37,13 +33,11 @@ const colorOptionSchema = new mongoose.Schema({
     type: String,
     trim: true
   },
-  sizes: [sizeVariantSchema] // NESTED ARRAY of size variants
+  sizes: [sizeVariantSchema] 
 }, { _id: false });
 
-// ===============================================
-// EMBEDDED SCHEMA: Review
-// Demonstrates: Array of Embedded Documents with Refs
-// ===============================================
+// Embedded Schema: Review
+// Array of Embedded Documents with Refs
 const reviewSchema = new mongoose.Schema({
   user: {
     type: mongoose.Schema.Types.ObjectId,
@@ -72,9 +66,8 @@ const reviewSchema = new mongoose.Schema({
   }
 }, { _id: true });
 
-// ===============================================
 // MAIN SCHEMA: Product
-// Advanced Features Demonstrated:
+// Advanced Features:
 // 1. Multiple levels of embedded documents
 // 2. Array of embedded objects (colors, sizes, reviews)
 // 3. References to other collections
@@ -83,7 +76,6 @@ const reviewSchema = new mongoose.Schema({
 // 6. Compound indexes
 // 7. Virtual properties
 // 8. Pre/Post hooks
-// ===============================================
 const productSchema = new mongoose.Schema({
   name: {
     type: String,
@@ -196,10 +188,8 @@ const productSchema = new mongoose.Schema({
   toObject: { virtuals: true }
 });
 
-// ===============================================
-// INDEXES (Advanced Feature)
+// INDEXES 
 // Multiple indexes for different query patterns
-// ===============================================
 
 // Text index for full-text search on name, description, and brand
 productSchema.index({ 
@@ -209,10 +199,10 @@ productSchema.index({
   tags: 'text'
 }, {
   weights: {
-    name: 10,      // Name is most important
-    brand: 5,      // Brand is moderately important
-    tags: 3,       // Tags are somewhat important
-    description: 1 // Description is least important
+    name: 10,      
+    brand: 5,     
+    tags: 3,       
+    description: 1 
   }
 });
 
@@ -228,9 +218,8 @@ productSchema.index({ isFeatured: 1, averageRating: -1 });
 // Index for active products sorted by creation date
 productSchema.index({ isActive: 1, createdAt: -1 });
 
-// ===============================================
+
 // VIRTUAL PROPERTIES
-// ===============================================
 
 // Calculate discounted price
 productSchema.virtual('finalPrice').get(function() {
@@ -250,10 +239,8 @@ productSchema.virtual('discountAmount').get(function() {
   return this.price - this.finalPrice;
 });
 
-// ===============================================
-// PRE-SAVE HOOKS (Middleware)
+// PRE-SAVE HOOKS
 // Auto-calculate totalStock when colors/sizes change
-// ===============================================
 productSchema.pre('save', function(next) {
   // Calculate total stock from all color variants
   if (this.colors && this.colors.length > 0) {
@@ -276,10 +263,9 @@ productSchema.pre('save', function(next) {
   next();
 });
 
-// ===============================================
+
 // STATIC METHODS
 // Advanced queries using aggregation
-// ===============================================
 
 // Find top-rated products
 productSchema.statics.findTopRated = function(limit = 10) {
@@ -304,9 +290,7 @@ productSchema.statics.findLowStock = function(threshold = 10) {
   }).sort({ totalStock: 1 });
 };
 
-// ===============================================
 // INSTANCE METHODS
-// ===============================================
 
 // Add a review (using $push - Advanced Update Operator)
 productSchema.methods.addReview = function(userId, userName, rating, comment) {

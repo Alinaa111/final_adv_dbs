@@ -191,21 +191,15 @@ const createProduct = async (req, res) => {
   }
 };
 
-// ===============================================
 // @desc    Update product
 // @route   PATCH /api/products/:id
 // @access  Private/Admin
-// DEMONSTRATES: CRUD - Update with $set and $inc
-// ===============================================
+// Contains CRUD - Update with $set and $inc
 const updateProduct = async (req, res) => {
   try {
     const { id } = req.params;
     const updates = req.body;
 
-    // NOTE:
-    // We intentionally use findById + save (instead of findByIdAndUpdate)
-    // so Product pre('save') hooks run.
-    // This keeps totalStock / averageRating in sync when colors/sizes change.
     const product = await Product.findById(id);
 
     if (!product) {
@@ -236,12 +230,10 @@ const updateProduct = async (req, res) => {
   }
 };
 
-// ===============================================
 // @desc    Update product stock
 // @route   PATCH /api/products/:id/stock
 // @access  Private/Admin
-// DEMONSTRATES: Advanced Update with $inc operator
-// ===============================================
+// Shows Advanced Update with $inc operator
 const updateStock = async (req, res) => {
   try {
     const { colorName, size, quantity, stock } = req.body;
@@ -323,12 +315,11 @@ const updateStock = async (req, res) => {
   }
 };
 
-// ===============================================
+
 // @desc    Delete product
 // @route   DELETE /api/products/:id
 // @access  Private/Admin
-// DEMONSTRATES: CRUD - Delete
-// ===============================================
+// Shwos CRUD - Delete
 const deleteProduct = async (req, res) => {
   try {
     const product = await Product.findByIdAndDelete(req.params.id);
@@ -354,12 +345,10 @@ const deleteProduct = async (req, res) => {
   }
 };
 
-// ===============================================
 // @desc    Add review to product
 // @route   POST /api/products/:id/reviews
 // @access  Private
-// DEMONSTRATES: Advanced Update with $push operator
-// ===============================================
+// Shows Advanced Update with $push operator
 const addReview = async (req, res) => {
   try {
     const { rating, comment } = req.body;
@@ -393,7 +382,7 @@ const addReview = async (req, res) => {
       });
     }
 
-    // ADVANCED UPDATE: Use $push to add review to array
+    // Adv Update Use $push to add review to array
     const updatedProduct = await Product.findByIdAndUpdate(
       productId,
       {
@@ -424,11 +413,9 @@ const addReview = async (req, res) => {
   }
 };
 
-// ===============================================
 // @desc    Get featured products
 // @route   GET /api/products/featured
-// @access  Public
-// ===============================================
+// @access  Public\
 const getFeaturedProducts = async (req, res) => {
   try {
     const products = await Product.find({ 
